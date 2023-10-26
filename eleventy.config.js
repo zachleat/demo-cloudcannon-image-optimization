@@ -5,7 +5,7 @@ const { filesize } = require("filesize");
 
 const IMAGE_OPTIONS = {
 	widths: [400, 800, 1600],
-	formats: ["avif", "webp", "jpeg"],
+	formats: ["svg", "avif", "webp", "jpeg"],
 };
 
 const ORIGINAL_IMAGE_OPTIONS = {
@@ -13,15 +13,17 @@ const ORIGINAL_IMAGE_OPTIONS = {
 	formats: ["auto"],
 };
 
-async function imageStats(filePath, forOriginal) {
+async function imageStats(filePath, options) {
 	let metadata = await Image(filePath, Object.assign({
 		dryRun: true,
-	}, forOriginal ? ORIGINAL_IMAGE_OPTIONS : IMAGE_OPTIONS));
+		svgShortCircuit: options.preferSvg,
+	}, options.original ? ORIGINAL_IMAGE_OPTIONS : IMAGE_OPTIONS));
 	return metadata;
 }
 
-async function image(filePath, title) {
+async function image(filePath, title, preferSvg) {
 	let metadata = await Image(filePath, Object.assign({
+		svgShortCircuit: preferSvg,
 		outputDir: "./_site/optimized/",
 		urlPath: "/optimized/",
 	}, IMAGE_OPTIONS));
@@ -60,34 +62,44 @@ module.exports = function(eleventyConfig) {
 		"./node_modules/@zachleat/browser-window/browser-window.js": "/browser-window.js",
 	});
 
+	function sizeEntryToHtml(format, sizeEntry, beforeSize) {
+		return `<tr>
+	<td><code>${filesize(sizeEntry.size)}</code></td>
+	<td>${format.toLowerCase()}</td>
+	<td><code class="demo-better">${((sizeEntry.size - beforeSize) * 100 / beforeSize + 100).toFixed(2)}%</code></td>
+	<td><code>${sizeEntry.width}w</code></td>
+</tr>`
+	}
 	// Filters
-	function metadataString(metadata, before) {
+	function metadataString(metadata, beforeSize) {
+		if(metadata?.svg?.length === 0) {
+			delete metadata.svg;
+		}
 		let formats = Object.keys(metadata).reverse();
 		let sizeCount = metadata[formats[0]].length;
-		let sizeIndexes = [sizeCount - 1, 0];
+		let sizeIndexes = [sizeCount - 1, 0]; // biggest and smallest
 
 		let html = [];
 		for(let j of sizeIndexes) {
 			for(let format of formats) {
-				let sizeEntry = metadata[format][j];
-				html.push(`<tr>
-	<td><code>${filesize(sizeEntry.size)}</code></td>
-	<td>${format.toLowerCase()}</td>
-	<td><code class="demo-better">${((sizeEntry.size - before) * 100 / before + 100).toFixed(2)}%</code></td>
-	<td><code>${sizeEntry.width}w</code></td>
-</tr>`);
+				if(format === "svg") {
+					continue;
+				}
+				if(metadata[format][j]) {
+					html.push(sizeEntryToHtml(format, metadata[format][j], beforeSize));
+				}
 			}
 		}
 		return html.join("\n");
 	}
 
-	eleventyConfig.addFilter("friendlySizeTable", async srcFilePath => {
+	eleventyConfig.addFilter("friendlySizeTable", async (srcFilePath, preferSvg) => {
 		let filePath = path.join(eleventyConfig.dir.input, srcFilePath);
 		let stats = fs.statSync(filePath);
 		let before = stats.size;
 
-		let metadata = await imageStats(filePath);
-		let originalMetadata = await imageStats(filePath, true);
+		let metadata = await imageStats(filePath, { preferSvg });
+		let originalMetadata = await imageStats(filePath, { original: true });
 		let originalFormat = Object.keys(originalMetadata).pop();
 
 		return `<table>
