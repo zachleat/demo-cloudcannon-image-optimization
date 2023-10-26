@@ -1,5 +1,5 @@
 collections_config:
-  sites:
+  images:
     icon: image
     _enabled_editors:
       - data
