@@ -51,7 +51,8 @@ module.exports = function(eleventyConfig) {
 
 	// Components
 	eleventyConfig.addPassthroughCopy({
-		"./node_modules/@zachleat/browser-window/browser-window.js": "/browser-window.js"
+		"./src/style.css": "/style.css",
+		"./node_modules/@zachleat/browser-window/browser-window.js": "/browser-window.js",
 	});
 
 	// Filters

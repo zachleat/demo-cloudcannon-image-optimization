@@ -1,63 +1,21 @@
+---
+title: Image Optimization in CloudCannon
+---
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
-		<title></title>
-		<style>
-			* {
-				box-sizing: border-box;
-			}
-			html {
-				font-family: system-ui, sans-serif;
-			}
-			html, body {
-				min-height: 100vh;
-				margin: 0;
-			}
-			body {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-			main {
-				max-width: 50em;
-				margin: 0 auto;
-				padding: 1em;
-			}
-			img {
-				max-width: 100%;
-			}
-			img[width][height] {
-				height: auto;
-			}
-			figure {
-				margin: 0;
-			}
-			figcaption {
-				padding: .5em 1em .75em;
-			}
-			table {
-				margin: 2em 0 0;
-			}
-			table :is(td,th) {
-				padding: .25em .5em;
-			}
-			.demo-better {
-				color: #00882D;
-				font-weight: bold;
-			}
-			.demo-worse {
-				color: #CB000F;
-				font-weight: bold;
-			}
-		</style>
+		<title>{{ title }}</title>
+		<link rel="stylesheet" href="/style.css">
 		<script src="/browser-window.js"></script>
+
+		<script type="module" src="https://esm.sh/@zachleat/table-saw"></script>
 	</head>
 	<body>
 		<header>
-			<h1></h1>
+			<h1>{{ title }}</h1>
 		</header>
 		<main>
 			{% for image in collections.images %}
@@ -67,7 +25,9 @@
 						{% image image.data.image_path, image.data.alt_text %}
 						<figcaption>
 							{{ image.data.label }}
-							{{ image.data.image_path | friendlySizeTable }}
+							<table-saw breakpoint="(max-width: 21.8125em)" type="container">
+								{{ image.data.image_path | friendlySizeTable }}
+							</table-saw>
 						</figcaption>
 					</figure>
 				</browser-window>

@@ -1,0 +1,50 @@
+* {
+	box-sizing: border-box;
+}
+html {
+	font-family: system-ui, sans-serif;
+}
+html, body {
+	min-height: 100vh;
+	margin: 0;
+}
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+main {
+	max-width: 50em;
+	margin: 0 auto;
+	padding: 0 1em 1em;
+}
+h1 {
+	margin: .5em 0;
+}
+img {
+	max-width: 100%;
+}
+img[width][height] {
+	height: auto;
+}
+figure {
+	margin: 0;
+}
+figcaption {
+	padding: .5em 1em .75em;
+}
+table {
+	margin: 2em 0 0;
+}
+table :is(td,th) {
+	padding: .25em .5em;
+}
+.demo-better {
+	color: #00882D;
+	font-weight: bold;
+}
+.demo-worse {
+	color: #CB000F;
+	font-weight: bold;
+}
