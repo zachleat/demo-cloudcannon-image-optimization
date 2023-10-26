@@ -1,6 +1,6 @@
 ---
 label: ""
-image_path: ""
+image: ""
 alt_text: ""
 attribution_url: ""
 ---

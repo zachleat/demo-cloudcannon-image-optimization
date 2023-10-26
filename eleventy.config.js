@@ -45,6 +45,11 @@ module.exports = function(eleventyConfig) {
 		return image(filePath, ...args)
 	});
 
+	// Server
+	eleventyConfig.setServerOptions({
+		domDiff: false,
+	})
+
 	// Ignores
 	eleventyConfig.ignores.add("README.md");
 	eleventyConfig.ignores.add("src/_schemas/*");
@@ -67,8 +72,8 @@ module.exports = function(eleventyConfig) {
 				let sizeEntry = metadata[format][j];
 				html.push(`<tr>
 	<td><code>${filesize(sizeEntry.size)}</code></td>
-	<td><code class="demo-better">${((sizeEntry.size - before) * 100 / before + 100).toFixed(2)}%</code></td>
 	<td>${format.toLowerCase()}</td>
+	<td><code class="demo-better">${((sizeEntry.size - before) * 100 / before + 100).toFixed(2)}%</code></td>
 	<td><code>${sizeEntry.width}w</code></td>
 </tr>`);
 			}
@@ -89,17 +94,17 @@ module.exports = function(eleventyConfig) {
 	<thead>
 		<tr>
 			<th>Size</th>
-			<th>Difference</th>
 			<th>Format</th>
+			<th>Percent</th>
 			<th>Width</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
 			<td><code>${filesize(before)}</code></td>
-			<td><code class="demo-worse">100%</code></td>
 			<td>${originalFormat.toLowerCase()}</td>
-			<td><code>${originalMetadata[originalFormat][0].width}w</td>
+			<td><code class="demo-worse">100%</code></td>
+			<td><code>${originalMetadata[originalFormat][0].width}w</code> (original)</td>
 		</tr>
 		${metadataString(metadata, before)}
 	</tbody>

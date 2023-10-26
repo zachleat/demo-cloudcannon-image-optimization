@@ -22,11 +22,11 @@ title: Image Optimization in CloudCannon
 			<section>
 				<browser-window shadow flush icon url="{{ image.data.attribution_url }}">
 					<figure>
-						{% image image.data.image_path, image.data.alt_text %}
+						{% image image.data.image, image.data.alt_text %}
 						<figcaption>
 							{{ image.data.label }}
-							<table-saw breakpoint="(max-width: 21.8125em)" type="container">
-								{{ image.data.image_path | friendlySizeTable }}
+							<table-saw breakpoint="(max-width: 23.0625em)" type="container">
+								{{ image.data.image | friendlySizeTable }}
 							</table-saw>
 						</figcaption>
 					</figure>
