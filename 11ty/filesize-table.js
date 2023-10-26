@@ -12,12 +12,16 @@ const ORIGINAL_IMAGE_OPTIONS = {
 async function imageStats(filePath, options, imageOptions) {
 	let metadata = await Image(filePath, Object.assign({
 		dryRun: true,
-		svgShortCircuit: options.preferSvg,
+		svgShortCircuit: options.preferSvg ? "size" : false,
 	}, imageOptions));
 	return metadata;
 }
 
-function sizeEntryToHtml(format, sizeEntry, beforeSize) {
+function sizeEntryToHtml(sizeEntry, beforeSize) {
+	let format = sizeEntry.format;
+	if(format === "svg") {
+		return "";
+	}
 	return `<tr>
 <td><code>${filesize(sizeEntry.size)}</code></td>
 <td>${format.toLowerCase()}</td>
@@ -27,24 +31,22 @@ function sizeEntryToHtml(format, sizeEntry, beforeSize) {
 }
 // Filters
 function metadataString(metadata, beforeSize) {
-	if(metadata?.svg?.length === 0) {
-		delete metadata.svg;
-	}
 	let formats = Object.keys(metadata).reverse();
-	let sizeCount = metadata[formats[0]].length;
-	let sizeIndexes = [sizeCount - 1, 0]; // biggest and smallest
+	let sizeCount = metadata[formats[1]].length;
+	let sizeIndexes = [0];
+	if(sizeCount > 1) {
+		sizeIndexes = [sizeCount - 1, 0]; // biggest and smallest
+	}
 
 	let html = [];
 	for(let j of sizeIndexes) {
 		for(let format of formats) {
-			if(format === "svg") {
-				continue;
-			}
 			if(metadata[format][j]) {
-				html.push(sizeEntryToHtml(format, metadata[format][j], beforeSize));
+				html.push(sizeEntryToHtml(metadata[format][j], beforeSize));
 			}
 		}
 	}
+
 	return html.join("\n");
 }
 
@@ -72,7 +74,7 @@ module.exports = function(eleventyConfig, options) {
 		<tr>
 			<td><code>${filesize(before)}</code></td>
 			<td>${originalFormat.toLowerCase()}</td>
-			<td><code class="demo-worse">100%</code></td>
+			<td><code><strong>100%</strong></code></td>
 			<td><code>${originalMetadata[originalFormat][0].width}w</code> (original)</td>
 		</tr>
 		${metadataString(metadata, before)}

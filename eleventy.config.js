@@ -3,12 +3,12 @@ const Image = require("@11ty/eleventy-img");
 
 const IMAGE_OPTIONS = {
 	widths: [400, 800, 1600],
-	formats: ["svg", "avif", "webp", "jpeg"],
+	formats: ["avif", "webp", "jpeg", "svg"],
 };
 
 async function image(filePath, title, preferSvg) {
 	let metadata = await Image(filePath, Object.assign({
-		svgShortCircuit: preferSvg,
+		svgShortCircuit: preferSvg ? "size" : false,
 		outputDir: "./_site/optimized/",
 		urlPath: "/optimized/",
 	}, IMAGE_OPTIONS));
