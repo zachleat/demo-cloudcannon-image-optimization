@@ -1,4 +1,5 @@
 const fs = require("node:fs");
+const path = require("node:path");
 const Image = require("@11ty/eleventy-img");
 const { filesize } = require("filesize");
 
@@ -39,7 +40,10 @@ async function image(filePath, title) {
 }
 
 module.exports = function(eleventyConfig) {
-	eleventyConfig.addShortcode("image", (...args) => image(...args));
+	eleventyConfig.addShortcode("image", (srcFilePath, ...args) => {
+		let filePath = path.join(eleventyConfig.dir.input, srcFilePath);
+		return image(filePath, ...args)
+	});
 
 	// Ignores
 	eleventyConfig.ignores.add("README.md");
@@ -76,7 +80,8 @@ module.exports = function(eleventyConfig) {
 		return html.join("\n");
 	}
 
-	eleventyConfig.addFilter("friendlySizeTable", async filePath => {
+	eleventyConfig.addFilter("friendlySizeTable", async srcFilePath => {
+		let filePath = path.join(eleventyConfig.dir.input, srcFilePath);
 		let stats = fs.statSync(filePath);
 		let before = stats.size;
 
