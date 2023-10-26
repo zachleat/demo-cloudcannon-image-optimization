@@ -1,0 +1,8 @@
+collections_config:
+  sites:
+    icon: image
+    _enabled_editors:
+      - data
+    schemas:
+      default:
+        path: src/_schemas/site.md
