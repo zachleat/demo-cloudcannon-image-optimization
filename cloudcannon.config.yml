@@ -5,4 +5,4 @@ collections_config:
       - data
     schemas:
       default:
-        path: src/_schemas/site.md
+        path: src/_schemas/images.md
