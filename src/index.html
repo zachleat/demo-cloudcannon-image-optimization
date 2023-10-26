@@ -26,7 +26,7 @@ title: Image Optimization in CloudCannon
 						<figcaption>
 							{{ image.data.label }}
 							<table-saw breakpoint="(max-width: 23.0625em)" type="container">
-								{{ image.data.image | friendlySizeTable }}
+								{{ image.data.image | friendlySizeTable: image.data.prefer_svg }}
 							</table-saw>
 						</figcaption>
 					</figure>
