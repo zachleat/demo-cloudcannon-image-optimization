@@ -104,4 +104,10 @@ module.exports = function(eleventyConfig) {
 	</tbody>
 </table>`;
 	});
+
+	return {
+		dir: {
+			input: "src"
+		}
+	}
 };
