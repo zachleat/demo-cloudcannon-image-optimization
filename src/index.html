@@ -24,7 +24,7 @@ title: Image Optimization in CloudCannon
 					<figure>
 						{% image image.data.image, image.data.alt_text, image.data.prefer_svg %}
 						<figcaption>
-							{{ image.data.label }}{% if image.data.prefer_svg %} (prefer SVG){% endif %}
+							{{ image.data.label }}
 							<table-saw breakpoint="(max-width: 23.0625em)" type="container">
 								{{ image.data.image | friendlySizeTable: image.data.prefer_svg }}
 							</table-saw>
