@@ -42,10 +42,11 @@ module.exports = function(eleventyConfig) {
 
 	// Components
 	eleventyConfig.addPassthroughCopy({
-		"./src/style.css": "/style.css",
+		"./public/*": "/",
 		"./node_modules/@zachleat/browser-window/browser-window.js": "/browser-window.js",
 	});
 
+	// Plugin to show optimized Image file sizes in a nice table.
 	eleventyConfig.addPlugin(require("./11ty/filesize-table.js"), {
 		imageOptions: IMAGE_OPTIONS
 	});

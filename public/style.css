@@ -24,9 +24,9 @@ h1 {
 }
 img {
 	max-width: 100%;
-}
-img[width][height] {
 	height: auto;
+	background-image: url(/checkerboard.svg);
+	background-repeat: repeat;
 }
 figure {
 	margin: 0;
