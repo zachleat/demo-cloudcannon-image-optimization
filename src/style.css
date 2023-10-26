@@ -40,6 +40,11 @@ table {
 table :is(td,th) {
 	padding: .25em .5em;
 }
+section ~ section {
+	margin-top: 2em;
+}
+
+/* Demo styles */
 .demo-better {
 	color: #00882D;
 	font-weight: bold;
