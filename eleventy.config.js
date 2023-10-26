@@ -49,11 +49,6 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.ignores.add("README.md");
 	eleventyConfig.ignores.add("src/_schemas/*");
 
-	// Collections
-	eleventyConfig.addCollection("images", function(collectionApi) {
-		return collectionApi.getFilteredByGlob("**/images/*.md");
-	});
-
 	// Components
 	eleventyConfig.addPassthroughCopy({
 		"./node_modules/@zachleat/browser-window/browser-window.js": "/browser-window.js"
