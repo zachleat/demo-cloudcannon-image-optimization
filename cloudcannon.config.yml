@@ -3,7 +3,7 @@ collections_config:
     icon: image
     filter:
       exclude:
-        - images/images.json
+        - images.json
     _enabled_editors:
       - data
     schemas:
