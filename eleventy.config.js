@@ -21,8 +21,8 @@ async function imageStats(filePath, forOriginal) {
 
 async function image(filePath, title) {
 	let metadata = await Image(filePath, Object.assign({
-		outputDir: "./_site/images/",
-		urlPath: "/images/",
+		outputDir: "./_site/optimized/",
+		urlPath: "/optimized/",
 	}, IMAGE_OPTIONS));
 
 	let imageAttributes = {
