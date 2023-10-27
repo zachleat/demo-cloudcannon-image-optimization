@@ -15,7 +15,7 @@ async function image(filePath, title, preferSvg) {
 
 	let imageAttributes = {
 		alt: title,
-		sizes: "(min-width: 50em) 50em, 100vw",
+		sizes: "(min-width: 50em) 44.4375em, 89vw",
 		loading: "eager", // "lazy",
 		// fetchpriority: "high", // "auto",
 		decoding: "async",
