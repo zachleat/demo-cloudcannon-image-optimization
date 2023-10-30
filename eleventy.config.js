@@ -8,19 +8,19 @@ const IMAGE_OPTIONS = {
 	urlPath: "/optimized/",
 };
 
-async function image(inputFilePath, title, preferSvg) {
+async function image(inputFilePath, alt, sizes, preferSvg) {
 	let before = Date.now();
 	let metadata = await Image(inputFilePath, Object.assign({
 		svgShortCircuit: preferSvg ? "size" : false,
 	}, IMAGE_OPTIONS));
-
 	console.log( "[11ty/eleventy-img]", `${Date.now() - before}ms`, inputFilePath );
+
 	let imageAttributes = {
-		alt: title,
-		sizes: "(min-width: 50em) 44.4375em, 89vw",
-		loading: "eager", // "lazy",
-		// fetchpriority: "high", // "auto",
+		alt,
+		sizes,
+		loading: "eager",
 		decoding: "async",
+		// fetchpriority: "high", // "auto",
 	};
 
 	// You bet we throw an error on a missing alt (alt="" works okay)
