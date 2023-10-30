@@ -17,14 +17,16 @@ title: Image Optimization in CloudCannon
 			<h1>{{ title }}</h1>
 		</header>
 		<main>
-			{% for image in collections.images %}
+			{%- for image in collections.images %}
+			{%- if image.data.image %}
 			<section>
 				<browser-window shadow flush icon url="{{ image.data.attribution_url }}">
 					{%- image image.data.image, image.data.alt_text, image.data.prefer_svg -%}
 				</browser-window>
 				{{ image.data.image | friendlySizeTable: image.data.prefer_svg }}
 			</section>
-			{% endfor %}
+			{%- endif %}
+			{%- endfor %}
 		</main>
 	</body>
 </html>
