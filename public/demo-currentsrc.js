@@ -6,12 +6,12 @@ if("ResizeObserver" in window) {
 			if(img.currentSrc) {
 				let u = new URL(img.currentSrc);
 
-				let table = img.closest("browser-window").nextElementSibling;
+				let section = img.closest("section");
 
-				let previousRow = table.querySelector(`tr.currentsrc`);
+				let previousRow = section.querySelector(`tr.currentsrc`);
 				previousRow?.classList.remove("currentsrc");
 
-				let currentSrcRow = table.querySelector(`tr[data-url="${u.pathname}"]`);
+				let currentSrcRow = section.querySelector(`tr[data-url="${u.pathname}"]`);
 				currentSrcRow?.classList.add("currentsrc", "loadedsrc");
 			}
 		}
