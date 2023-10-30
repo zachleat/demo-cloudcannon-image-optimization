@@ -22,7 +22,8 @@ function sizeEntryToHtml(sizeEntry, beforeSize) {
 	if(format === "svg") {
 		return "";
 	}
-	return `<tr>
+
+	return `<tr data-url="${sizeEntry.url}">
 <td><code>${filesize(sizeEntry.size)}</code></td>
 <td>${format.toLowerCase()}</td>
 <td><code class="demo-better">${((sizeEntry.size - beforeSize) * 100 / beforeSize + 100).toFixed(2)}%</code></td>
@@ -33,13 +34,9 @@ function sizeEntryToHtml(sizeEntry, beforeSize) {
 function metadataString(metadata, beforeSize) {
 	let formats = Object.keys(metadata).reverse();
 	let sizeCount = metadata[formats[1]].length;
-	let sizeIndexes = [0];
-	if(sizeCount > 1) {
-		sizeIndexes = [sizeCount - 1, 0]; // biggest and smallest
-	}
 
 	let html = [];
-	for(let j of sizeIndexes) {
+	for(let j = sizeCount - 1; j>=0; j--) {
 		for(let format of formats) {
 			if(metadata[format][j]) {
 				html.push(sizeEntryToHtml(metadata[format][j], beforeSize));
@@ -57,9 +54,11 @@ module.exports = function(eleventyConfig, options) {
 		let stats = fs.statSync(filePath);
 		let before = stats.size;
 
-		let metadata = await imageStats(filePath, { preferSvg }, options.imageOptions);
-		let originalMetadata = await imageStats(filePath, { preferSvg }, ORIGINAL_IMAGE_OPTIONS);
+		let originalImageOptions = Object.assign({}, options.imageOptions, ORIGINAL_IMAGE_OPTIONS);
+		let originalMetadata = await imageStats(filePath, { preferSvg }, originalImageOptions);
 		let originalFormat = Object.keys(originalMetadata).pop();
+
+		let metadata = await imageStats(filePath, { preferSvg }, options.imageOptions);
 
 		return `<table>
 	<thead>
@@ -71,11 +70,11 @@ module.exports = function(eleventyConfig, options) {
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
+		<tr data-url="${originalMetadata[originalFormat][0].url}">
 			<td><code>${filesize(before)}</code></td>
 			<td>${originalFormat.toLowerCase()}</td>
-			<td><code><strong>100%</strong></code></td>
-			<td><code>${originalMetadata[originalFormat][0].width}w</code> (original)</td>
+			<td><code><em>100%</em></code></td>
+			<td><code>${originalMetadata[originalFormat][0].width}w</code></td>
 		</tr>
 		${metadataString(metadata, before)}
 	</tbody>

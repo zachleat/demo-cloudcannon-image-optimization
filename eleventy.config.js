@@ -4,14 +4,14 @@ const Image = require("@11ty/eleventy-img");
 const IMAGE_OPTIONS = {
 	widths: [400, 800, 1600],
 	formats: ["avif", "webp", "jpeg", "svg"],
+	outputDir: "./_site/optimized/",
+	urlPath: "/optimized/",
 };
 
 async function image(inputFilePath, title, preferSvg) {
 	let before = Date.now();
 	let metadata = await Image(inputFilePath, Object.assign({
 		svgShortCircuit: preferSvg ? "size" : false,
-		outputDir: "./_site/optimized/",
-		urlPath: "/optimized/",
 	}, IMAGE_OPTIONS));
 
 	console.log( "[11ty/eleventy-img]", `${Date.now() - before}ms`, inputFilePath );

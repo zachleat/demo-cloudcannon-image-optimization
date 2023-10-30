@@ -9,9 +9,8 @@ title: Image Optimization in CloudCannon
 		<meta name="description" content="">
 		<title>{{ title }}</title>
 		<link rel="stylesheet" href="/style.css">
-		<script src="/browser-window.js"></script>
-
-		<script type="module" src="https://esm.sh/@zachleat/table-saw"></script>
+		<script type="module" src="/browser-window.js"></script>
+		<script type="module" src="/currentsrc.js"></script>
 	</head>
 	<body>
 		<header>
@@ -28,12 +27,9 @@ title: Image Optimization in CloudCannon
 						</figcaption>
 					</figure>
 				</browser-window>
-				<table-saw breakpoint="(max-width: 23.0625em)" type="container">
-					{{ image.data.image | friendlySizeTable: image.data.prefer_svg }}
-				</table-saw>
+				{{ image.data.image | friendlySizeTable: image.data.prefer_svg }}
 			</section>
 			{% endfor %}
-			<!-- TODO web component to show active currentSrc in friendlySizeTable -->
 		</main>
 	</body>
 </html>

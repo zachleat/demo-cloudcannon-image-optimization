@@ -64,3 +64,9 @@ section:last-of-type {
 	color: #CB000F;
 	font-weight: bold;
 }
+tr.loadedsrc {
+	background-color: #eaeaea;
+}
+tr.currentsrc {
+	outline: 2px solid;
+}
