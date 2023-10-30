@@ -6,13 +6,15 @@ const IMAGE_OPTIONS = {
 	formats: ["avif", "webp", "jpeg", "svg"],
 };
 
-async function image(filePath, title, preferSvg) {
-	let metadata = await Image(filePath, Object.assign({
+async function image(inputFilePath, title, preferSvg) {
+	let before = Date.now();
+	let metadata = await Image(inputFilePath, Object.assign({
 		svgShortCircuit: preferSvg ? "size" : false,
 		outputDir: "./_site/optimized/",
 		urlPath: "/optimized/",
 	}, IMAGE_OPTIONS));
 
+	console.log( "[11ty/eleventy-img]", `${Date.now() - before}ms`, inputFilePath );
 	let imageAttributes = {
 		alt: title,
 		sizes: "(min-width: 50em) 44.4375em, 89vw",

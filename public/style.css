@@ -1,6 +1,9 @@
 * {
 	box-sizing: border-box;
 }
+:root {
+	--theme-rhythm: 4em;
+}
 html {
 	font-family: system-ui, sans-serif;
 }
@@ -40,8 +43,16 @@ table {
 table :is(td,th) {
 	padding: .25em .5em;
 }
-section ~ section {
-	margin-top: 2em;
+section {
+	padding-bottom: var(--theme-rhythm);
+	margin: var(--theme-rhythm) 0;
+	border-bottom: 1px solid #c2c2c2;
+}
+section:first-of-type {
+	margin-top: 0;
+}
+section:last-of-type {
+	border-bottom: none;
 }
 
 /* Demo styles */

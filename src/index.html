@@ -25,14 +25,15 @@ title: Image Optimization in CloudCannon
 						{% image image.data.image, image.data.alt_text, image.data.prefer_svg %}
 						<figcaption>
 							{{ image.data.label }}
-							<table-saw breakpoint="(max-width: 23.0625em)" type="container">
-								{{ image.data.image | friendlySizeTable: image.data.prefer_svg }}
-							</table-saw>
 						</figcaption>
 					</figure>
 				</browser-window>
+				<table-saw breakpoint="(max-width: 23.0625em)" type="container">
+					{{ image.data.image | friendlySizeTable: image.data.prefer_svg }}
+				</table-saw>
 			</section>
 			{% endfor %}
+			<!-- TODO web component to show active currentSrc in friendlySizeTable -->
 		</main>
 	</body>
 </html>
