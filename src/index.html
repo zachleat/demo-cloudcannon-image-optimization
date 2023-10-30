@@ -20,12 +20,7 @@ title: Image Optimization in CloudCannon
 			{% for image in collections.images %}
 			<section>
 				<browser-window shadow flush icon url="{{ image.data.attribution_url }}">
-					<figure>
-						{% image image.data.image, image.data.alt_text, image.data.prefer_svg %}
-						<figcaption>
-							{{ image.data.label }}
-						</figcaption>
-					</figure>
+					{%- image image.data.image, image.data.alt_text, image.data.prefer_svg -%}
 				</browser-window>
 				{{ image.data.image | friendlySizeTable: image.data.prefer_svg }}
 			</section>
