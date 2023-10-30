@@ -4,7 +4,7 @@ _inputs:
     options:
       uploads_dir: uploads
       accepts_mime_types: image/gif,image/jpeg,image/png,image/webp,image/svg+xml
-      width: 800
+      # width: 800
       # height: 600
       # resize_style: cover
       # expandable: true
