@@ -1,14 +1,15 @@
 {
   "name": "demo-cloudcannon-image-optimization",
   "version": "1.0.0",
-  "description": "",
   "scripts": {
     "start": "npx @11ty/eleventy --serve"
   },
   "dependencies": {
+    "@zachleat/browser-window": "^1.0.4"
+  },
+  "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
     "@11ty/eleventy-img": "^3.1.6",
-    "@zachleat/browser-window": "^1.0.4",
     "filesize": "^10.1.0"
   }
 }
