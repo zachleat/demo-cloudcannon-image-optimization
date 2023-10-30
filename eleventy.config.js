@@ -3,7 +3,7 @@ const Image = require("@11ty/eleventy-img");
 
 const IMAGE_OPTIONS = {
 	widths: [400, 800, 1600],
-	formats: ["avif", "webp", "jpeg", "svg"],
+	formats: ["avif", "webp", "svg", "jpeg"],
 	outputDir: "./_site/optimized/",
 	urlPath: "/optimized/",
 };
@@ -28,10 +28,15 @@ async function image(inputFilePath, alt, sizes, preferSvg) {
 }
 
 module.exports = function(eleventyConfig) {
+
 	eleventyConfig.addShortcode("image", (srcFilePath, ...args) => {
 		let filePath = path.join(eleventyConfig.dir.input, srcFilePath);
 		return image(filePath, ...args)
 	});
+
+
+
+
 
 	// Server
 	eleventyConfig.setServerOptions({
