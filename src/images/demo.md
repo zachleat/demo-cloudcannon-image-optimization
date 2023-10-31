@@ -1,7 +1,7 @@
 ---
 _schema: default
-image: /uploads/flag-of-mexico.svg
-alt_text: Flag of Mexico
-attribution_url: https://commons.wikimedia.org/wiki/File:Flag_of_Mexico.svg
+image: /uploads/ghostscript-tiger.svg
+alt_text: Ghostscript Tiger
+attribution_url: https://commons.wikimedia.org/wiki/File:Ghostscript_Tiger.svg
 prefer_svg: true
 ---
