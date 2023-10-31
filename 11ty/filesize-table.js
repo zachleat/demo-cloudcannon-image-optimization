@@ -9,10 +9,10 @@ const ORIGINAL_IMAGE_OPTIONS = {
 	formats: ["auto"],
 };
 
-async function imageStats(filePath, options, imageOptions) {
+async function imageStats(filePath, preferSvg, imageOptions) {
 	let metadata = await Image(filePath, Object.assign({
 		dryRun: true,
-		svgShortCircuit: options.preferSvg ? "size" : false,
+		svgShortCircuit: preferSvg ? "size" : false,
 	}, imageOptions));
 	return metadata;
 }
@@ -33,7 +33,7 @@ function sizeEntryToHtml(sizeEntry, beforeSize) {
 // Filters
 function metadataString(metadata, beforeSize) {
 	let formats = Object.keys(metadata).reverse();
-	let sizeCount = metadata[formats[1]].length;
+	let sizeCount = (metadata.jpeg || metadata.png || metadata.avif || metadata.webp).length;
 
 	let html = [];
 	for(let j = sizeCount - 1; j>=0; j--) {
@@ -55,10 +55,10 @@ module.exports = function(eleventyConfig, options) {
 		let before = stats.size;
 
 		let originalImageOptions = Object.assign({}, options.imageOptions, ORIGINAL_IMAGE_OPTIONS);
-		let originalMetadata = await imageStats(filePath, { preferSvg }, originalImageOptions);
+		let originalMetadata = await imageStats(filePath, preferSvg, originalImageOptions);
 		let originalFormat = Object.keys(originalMetadata).pop();
 
-		let metadata = await imageStats(filePath, { preferSvg }, options.imageOptions);
+		let metadata = await imageStats(filePath, preferSvg, options.imageOptions);
 
 		return `<table>
 	<thead>
