@@ -1,7 +1,7 @@
 # Eleventy Image optimization techniques (with CloudCannon CMS)
 
 * [**Live demo on CloudCannon**](https://talented-snake.cloudvent.net/)
-* [Video explanation on YouTube](https://www.youtube.com/watch?v=Dsd831CSazA)
+* [Video explanation on YouTube: _Stop Worrying About Huge CMS Image Uploads with Eleventy Image and CloudCannon CMS_](https://www.youtube.com/watch?v=Dsd831CSazA) (showing how Eleventy Image optimizes a 17MB PNG upload, a 140 KB SVG, and a 69KB SVG)
 
 
 ## Demo image sources
