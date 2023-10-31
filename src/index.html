@@ -17,11 +17,11 @@ title: Image Optimization in CloudCannon
 			<h1>{{ title }}</h1>
 		</header>
 		<main>
-			{%- assign sizes = "(min-width: 50em) 44.4375em, 89vw" %}
 			{%- for image in collections.images %}
 			{%- if image.data.image %}
 			<section>
 				<browser-window shadow flush icon url="{{ image.data.attribution_url }}">
+					{%- assign sizes = "(min-width: 50em) 44.4375em, 89vw" %}
 					{%- image image.data.image, image.data.alt_text, sizes, image.data.prefer_svg -%}
 				</browser-window>
 				{{ image.data.image | friendlySizeTable: image.data.prefer_svg }}
