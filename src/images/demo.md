@@ -1,7 +1,7 @@
 ---
 _schema: default
-image: /uploads/james-webb-max-12-25-21-pm.png
-alt_text: Carina Nebula
-attribution_url: https://science.nasa.gov/mission/webb/multimedia/images#First-Images
+image: /uploads/flag-of-mexico.svg
+alt_text: Flag of Mexico
+attribution_url: https://commons.wikimedia.org/wiki/File:Flag_of_Mexico.svg
 prefer_svg: true
 ---
