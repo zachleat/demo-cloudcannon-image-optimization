@@ -10,10 +10,12 @@ const IMAGE_OPTIONS = {
 
 module.exports = function(eleventyConfig) {
 	eleventyConfig.addShortcode("image", async (srcFilePath, alt, sizes, preferSvg) => {
+		let before = Date.now();
 		let inputFilePath = path.join(eleventyConfig.dir.input, srcFilePath);
 		let metadata = await Image(inputFilePath, Object.assign({
 			svgShortCircuit: preferSvg ? "size" : false,
 		}, IMAGE_OPTIONS));
+		console.log( `[11ty/eleventy-img] ${Date.now() - before}ms: ${inputFilePath}` );
 
 		return Image.generateHTML(metadata, {
 			alt,
