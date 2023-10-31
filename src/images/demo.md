@@ -1,7 +1,7 @@
 ---
 _schema: default
-image: ''
-alt_text: Carina Nebula
-attribution_url: https://science.nasa.gov/mission/webb/multimedia/images#First-Images
+image: /uploads/ghostscript-tiger.svg
+alt_text: Ghostscript Tiger
+attribution_url: https://commons.wikimedia.org/wiki/File:Ghostscript_Tiger.svg
 prefer_svg: true
 ---
