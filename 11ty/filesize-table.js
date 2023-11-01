@@ -58,14 +58,14 @@ module.exports = function(eleventyConfig, options) {
 		let originalFormat = Object.keys(originalMetadata).pop();
 
 		let before;
-		if(originalFormat === "svg") {
-			// use Brotli compressed SVG size.
-			before = originalMetadata[originalFormat][0].size;
-		} else {
-			// use original file directly.
-			let stats = fs.statSync(filePath);
-			before = stats.size;
-		}
+		// if(originalFormat === "svg") {
+		// 	// use Brotli compressed SVG size.
+		// 	before = originalMetadata[originalFormat][0].size;
+		// } else {
+		// use original file directly.
+		let stats = fs.statSync(filePath);
+		before = stats.size;
+		// }
 
 		let metadata = await imageStats(filePath, preferSvg, options.imageOptions);
 
