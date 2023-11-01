@@ -14,6 +14,7 @@ async function imageStats(filePath, preferSvg, imageOptions) {
 		dryRun: true,
 		svgShortCircuit: preferSvg ? "size" : false,
 	}, imageOptions));
+
 	return metadata;
 }
 
@@ -51,12 +52,20 @@ module.exports = function(eleventyConfig, options) {
 
 	eleventyConfig.addFilter("friendlySizeTable", async (srcFilePath, preferSvg) => {
 		let filePath = path.join(eleventyConfig.dir.input, srcFilePath);
-		let stats = fs.statSync(filePath);
-		let before = stats.size;
 
 		let originalImageOptions = Object.assign({}, options.imageOptions, ORIGINAL_IMAGE_OPTIONS);
 		let originalMetadata = await imageStats(filePath, preferSvg, originalImageOptions);
 		let originalFormat = Object.keys(originalMetadata).pop();
+
+		let before;
+		if(originalFormat === "svg") {
+			// use Brotli compressed SVG size.
+			before = originalMetadata[originalFormat][0].size;
+		} else {
+			// use original file directly.
+			let stats = fs.statSync(filePath);
+			before = stats.size;
+		}
 
 		let metadata = await imageStats(filePath, preferSvg, options.imageOptions);
 

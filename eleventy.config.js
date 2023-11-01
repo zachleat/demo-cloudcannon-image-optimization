@@ -6,6 +6,7 @@ const IMAGE_OPTIONS = {
 	formats: ["avif", "webp", "svg", "jpeg"],
 	outputDir: "./_site/optimized/",
 	urlPath: "/optimized/",
+	svgCompressionSize: "br",
 };
 
 module.exports = function(eleventyConfig) {
