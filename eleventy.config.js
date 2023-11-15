@@ -3,7 +3,7 @@ const Image = require("@11ty/eleventy-img");
 
 const IMAGE_OPTIONS = {
 	widths: [400, 800, 1600],
-	formats: ["avif", "webp", "svg", "jpeg"],
+	formats: ["avif", "webp", "jpeg", "svg"],
 	outputDir: "./_site/optimized/",
 	urlPath: "/optimized/",
 	// svgCompressionSize: "br",
